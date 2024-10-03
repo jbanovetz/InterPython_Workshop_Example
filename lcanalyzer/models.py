@@ -8,19 +8,21 @@ in a single or different bands.
 """
 
 import pandas as pd
+
 # import numpy as np
 # from astropy.timeseries import LombScargle
 
+
 def load_dataset(filename):
     """Load a table from CSV file.
-    
+
     :param filename: The name of the .csv file to load
     :returns: pd.DataFrame with the data from the file.
     """
     return pd.read_csv(filename)
 
 
-def mean_mag(data,mag_col):
+def mean_mag(data, mag_col):
     """Calculate the mean magnitude of a lightcurve.
     :param data: pd.DataFrame with observed magnitudes for a single source.
     :param mag_col: a string with the name of the column for calculating the min value.
@@ -29,7 +31,7 @@ def mean_mag(data,mag_col):
     return data[mag_col].mean()
 
 
-def max_mag(data,mag_col):
+def max_mag(data, mag_col):
     """Calculate the max magnitude of a lightcurve.
     :param data: pd.DataFrame with observed magnitudes for a single source.
     :param mag_col: a string with the name of the column for calculating the min value.
@@ -38,7 +40,7 @@ def max_mag(data,mag_col):
     return data[mag_col].max()
 
 
-def min_mag(data,mag_col):
+def min_mag(data, mag_col):
     """Calculate the min magnitude of a lightcurve.
     :param data: pd.DataFrame with observed magnitudes for a single source.
     :param mag_col: a string with the name of the column for calculating the min value.
@@ -46,13 +48,14 @@ def min_mag(data,mag_col):
     """
     return data[mag_col].min()
 
-def normalize_lc(df,mag_col):
+
+def normalize_lc(df, mag_col):
     # Normalize a single light curve
     # Check to make sure that mag values are valid
     if any(df[mag_col].abs() > 90):
-        raise ValueError(mag_col+' contains values with abs() larger than 90!')
-    min = min_mag(df,mag_col)
-    max = max_mag((df-min),mag_col)
-    lc = (df[mag_col]-min)/max
-    lc=lc.fillna(0)
+        raise ValueError(mag_col + " contains values with abs() larger than 90!")
+    min_lc = min_mag(df, mag_col)
+    max_lc = max_mag((df - min), mag_col)
+    lc = (df[mag_col] - min_lc) / max_lc
+    lc = lc.fillna(0)
     return lc
