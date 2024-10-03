@@ -1,7 +1,7 @@
 """Module containing code for plotting a lightcurve."""
 
 from matplotlib import pyplot as plt
-import pandas as pd
+# import pandas as pd
     
 def plotUnfolded(data,mag_col,time_col,color,marker):
     """
@@ -23,4 +23,3 @@ def plotUnfolded(data,mag_col,time_col,color,marker):
     ax.set_ylabel('Mag')
     fig.tight_layout()
     plt.show()
-
